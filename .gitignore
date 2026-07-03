@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Data files
+data/
+
+# dbt profile
+housing_dbt/profiles.yml
