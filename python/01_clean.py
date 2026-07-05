@@ -35,3 +35,21 @@ print(f"\nIndex types: \n{df['index_type'].value_counts()}")
 print(f"\nCities:\n{df['city'].value_counts()}")
 print(f"\nDate range: {df['year_month'].min()} -> {df['year_month'].max()}")
 print(f"\nStatus flags:\n{df['data_quality_flag'].value_counts(dropna=False)}")
+
+# REF_DATE comes as "2024-01" — convert to proper date
+df["year_month"] = pd.to_datetime(df["year_month"], format="%Y-%m")
+df["year"] = df["year_month"].dt.year
+df["month"] = df["year_month"].dt.month
+df["quarter"] = df["year_month"].dt.to_period("Q").astype(str)
+
+# Keep only the "Total (house and land)" index — the headline measure
+df = df[df["index_type"] == "Total (house and land)"].copy()
+# Remove rows flagged as unreliable by StatCan
+df = df[df["data_quality_flag"].isna() | (df["data_quality_flag"] == "")]
+# Convert index value to numeric
+df["index_value"] = pd.to_numeric(df["index_value"], errors="coerce")
+# Drop rows with no value
+df = df.dropna(subset=["index_value"])
+
+print(f"\nAfter filtering: {df.shape}")
+
