@@ -70,7 +70,7 @@ print(f"\n Enriched shape: {df.shape}")
 # Quick Summary
 summary = df.groupby("city").agg(
     latest_index = ("index_value", "last"),
-    peak_index = ("index_value", "max")
+    peak_index = ("index_value", "max"),
     avg_yoy = ("yoy_change_pct", "mean"),
 ).round(2).sort_values("latest_index", ascending= False)
 
