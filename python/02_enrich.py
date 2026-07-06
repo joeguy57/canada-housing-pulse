@@ -29,3 +29,20 @@ df["rolling_12m_average"] = (
     .round(2)
 )
 
+# Affordability Era Classification
+def affordability_era(index_val):
+    if pd.isna(index_val):
+        return "Unknown"
+    if index_val < 80:
+        return "Pre-boom (very affordable)"
+    if index_val < 100:
+        return "Affordable (below 2016 baseline)"
+    if index_val < 120:
+        return "Moderate (0-20% above baseline)"
+    if index_val < 150:
+        return "Elevated (20 - 50% above baseline)"
+    if index_val < 200:
+        return "Expensive (50 - 100% above baseline)"
+    return "Crisis (doubled from baseline)"
+
+df["affordability_era"] = df["index_value"].apply(affordability_era)
