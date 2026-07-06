@@ -299,7 +299,7 @@ def build_dashboard(df):
     <html>
     <head>
     <meta charset="utf-8">
-    <title>CanadaHousingPulse Dashboard</title>
+    <title>Canada Housing Pulse Dashboard</title>
     <style>
         body { font-family: Inter, Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 20px; }
         h1 { color: #1a1a2e; font-size: 28px; margin-bottom: 4px; }
