@@ -45,7 +45,7 @@ thresholds  AS (
             )- MAX(index_value)) / MAX(index_value) * 100
         , 1) AS pct_below_peak_now 
     FROM base
-    BROUP BY city, province
+    GROUP BY city, province
 ),
 
 with_years AS (
@@ -59,7 +59,7 @@ with_years AS (
         pct_below_peak_now<
 
         -- Is the market recovering (off peak by more than 5%)?
-        CASE WHEN pct_below_peak_now < -5 THEN TRUE ELSE FALSE AS is_recovering,
+        CASE WHEN pct_below_peak_now < -5 THEN TRUE ELSE FALSE END AS is_recovering,
         first_crossed_baseline,
         first_crossed_120,
         first_crossed_150,
@@ -67,7 +67,7 @@ with_years AS (
 
         -- Years it took to go from baseline cross 50% above
         CASE 
-            WHEN first_crossed_baseline IS NOT NULL AND first_crossed_150 IS NOT NUULL THEN
+            WHEN first_crossed_baseline IS NOT NULL AND first_crossed_150 IS NOT NULL THEN
             ROUND(
                 DATEDIFF(first_crossed_150, first_crossed_baseline) / 365.25
             , 1) 
