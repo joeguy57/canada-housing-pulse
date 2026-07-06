@@ -7,7 +7,7 @@ print(f"Loaded {len(df)} rows across {df["city"].nunique()} cities")
 # Year over Year Cahnge
 df = df.sort_values(["city", "year_month"])
 
-df["yoy_cchange_pct"] = (
+df["yoy_change_pct"] = (
     df.groupby("city")["index_value"]
     .pct_change(periods=12)
     .mul(100)
