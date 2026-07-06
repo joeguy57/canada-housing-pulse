@@ -29,7 +29,10 @@ SELECT
     peak_index_in_year,
     trough_index_in_year,
     intra_year_range,
-
+    RANK() OVER (
+        PARTITION BY year
+        ORDER BY avg_index DESC         
+    ) AS price_rank_in_year,
     -- Rank by growth rate within each year
     RANK() OVER (
         PARTITION BY year
