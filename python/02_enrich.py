@@ -46,3 +46,33 @@ def affordability_era(index_val):
     return "Crisis (doubled from baseline)"
 
 df["affordability_era"] = df["index_value"].apply(affordability_era)
+
+# Peak Detection Flag
+city_peaks = (
+    df.groupby("city")["index_value"]
+    .transform("max")   
+)
+df["is_peak_month"] = (df["index_value"] == city_peaks).astype(int)
+
+# Distance from peak
+df["pct_below_peak"] = (
+    (df["index_value"] - city_peaks) / city_peaks * 100
+).round(2)
+
+# Index Change Since 2016 Baseline
+df["change_since_baseline_pct"] = (df["index_value"] - 100).round(2)
+
+# Save
+df.to_csv("data/nhpi_enriched.csv", index= False)
+
+print(f"\n Enriched shape: {df.shape}")
+
+# Quick Summary
+summary = df.groupby("city").agg(
+    latest_index = ("index_value", "last"),
+    peak_index = ("index_value", "max")
+    avg_yoy = ("yoy_change_pct", "mean"),
+).round(2).sort_values("latest_index", ascending= False)
+
+print(f"\nCity summary (sorted by latest index):\n{summary.head(10)}")
+print(f"\nSaved --> data/nhpi_enriched.csv ")
