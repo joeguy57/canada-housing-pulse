@@ -8,7 +8,7 @@ WITH source AS (
 
 typed AS (
     SELECT
-        CAST(year_month AS TIMESTAMP) AS uear_month,
+        CAST(year_month AS TIMESTAMP) AS year_month,
         CAST(year AS INT) AS year,
         CAST(month AS INT) AS month,
         quarter,
@@ -17,7 +17,7 @@ typed AS (
         CAST(index_value AS DOUBLE) AS index_value,
         CAST(yoy_change_pct AS DOUBLE) AS yoy_change_pct,
         CAST(mom_change_pct AS DOUBLE) AS mom_change_pct,
-        CAST(rolling_12m_avg AS DOUBLE) AS rolling_12m_avg,
+        CAST(rolling_12m_average AS DOUBLE) AS rolling_12m_avg,
         affordability_era,
         CAST(is_peak_month AS BOOLEAN) AS is_peak_month,
         CAST(pct_below_peak AS DOUBLE) AS pct_below_peak,

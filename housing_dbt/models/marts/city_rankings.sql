@@ -17,7 +17,7 @@ annual AS (
         ROUND(MAX(index_value) - MIN(index_value), 1) AS intra_year_range
     FROM trends
     WHERE year >= 2010
-    GROUP BY city, province< year
+    GROUP BY city, province, year
 )
 
 SELECT
@@ -27,7 +27,7 @@ SELECT
     avg_index,
     avg_yoy_change,
     peak_index_in_year,
-    trough_in_year,
+    trough_index_in_year,
     intra_year_range,
 
     -- Rank by growth rate within each year
