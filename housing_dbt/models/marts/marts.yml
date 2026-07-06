@@ -1,0 +1,24 @@
+version: 2
+
+models:
+    - name: city_price_trends
+      description: >
+        One row per city per month. Includes index value, YoY and MoM changes,
+        rolling average, percentile rank, and consecutive growth months.
+        Primary table for the Plotly dashboard.
+      columns: 
+        - name: city
+          tests:
+            - not_null
+        - name: year_month
+          tests:
+            - not_null
+    - name:  affordability_inflection
+      description: >
+        One row per city. Records the first month each city crossed key
+        affordability thresholds (baseline, 120, 150, 200).
+        Answer the core question: when did each city become unaffordable?
+    - name: city_rankings
+      description: >
+        Annual summary ranking all cities by price level and growth rate.
+        covers 2010 onwards. Useful for year-by-year comparisons
