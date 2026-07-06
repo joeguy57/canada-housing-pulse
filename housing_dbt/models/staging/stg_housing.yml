@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+    - name: housing_pulse
+      database: housing_dbt
+      schema: housing_pulse
+      tables:
+        - name: nhpi_raw
+          description: "StatCan New HOusin Price Index loaded from CSV"
+
+models:
+    - name: stg_housing
+      description: >
+        Staged housing price index data. Casts types, filters bad rows,
+        one per city per month.
+      columns:
+        - name: city
+          tests:
+            - not null
+        - name: year_month
+          tests:
+            - not_null
+        - name: index_value
+          tests:
+            - not_null 
